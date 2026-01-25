@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResenhaBurger - Cardápio Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="ResenhaBurger" class="logo">
+            <h1>RESENHABURGER</h1>
+            <p class="slogan">Hambúrguer Artesanal 100% Baiano</p>
+        </div>
+        
+        <div class="user-info">
+            <div class="points-display" id="pointsDisplay">
+                <i class="fas fa-trophy"></i>
+                <span>0 pontos</span>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Abas de Navegação -->
+    <nav class="categories">
+        <button class="category-btn active" data-category="mais-pedidos">⭐ Mais Pedidos</button>
+        <button class="category-btn" data-category="hamburgueres">🍔 Hamburgueres</button>
+        <button class="category-btn" data-category="combos">📦 Combos</button>
+        <button class="category-btn" data-category="acompanhamentos">🍟 Acompanhamentos</button>
+        <button class="category-btn" data-category="bebidas">🥤 Bebidas</button>
+        <button class="category-btn" data-category="promocoes">🔥 Promoções</button>
+    </nav>
+
+    <!-- Container de Produtos -->
+    <main class="products-container" id="productsContainer">
+        <!-- Produtos carregados via JavaScript -->
+    </main>
+
+    <!-- Carrinho Flutuante -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Seu Rango</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <!-- Itens do carrinho -->
+        </div>
+        
+        <div class="cart-total">
+            <h4>Total: R$ <span id="cartTotal">0.00</span></h4>
+        </div>
+        
+        <div class="observations">
+            <textarea id="orderNotes" placeholder="Alguma observação? Ex: Sem cebola, maionese à parte..."></textarea>
+        </div>
+        
+        <button class="checkout-btn" onclick="checkout()">
+            <i class="fas fa-whatsapp"></i> Finalizar no WhatsApp
+        </button>
+        
+        <div class="points-info">
+            <i class="fas fa-info-circle"></i>
+            Cada R$1 = 1 ponto! Acumule e ganhe descontos!
+        </div>
+    </div>
+
+    <!-- Modal de Produto -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">×</span>
+            <div id="modalProductDetails"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
