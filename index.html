@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ResenhaBurger | O verdadeiro sabor da resenha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hambúrguer 100% soteropolitano 🍔🔥. Peça já pelo delivery!">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Overlay para fechar carrinho -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <!-- Header com slider -->
+    <header>
+        <div class="header-slider">
+            <div class="slider-container">
+                <div class="slide active">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200" alt="Hambúrguer suculento">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=1200" alt="Hambúrguer artesanal">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200" alt="Batatas crocantes">
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="slider-dots"></div>
+        </div>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="logo.png" alt="ResenhaBurger" class="logo-image">
+                <h1 class="brand-name">RESENHA<span class="brand-burger">BURGER</span></h1>
+                <p class="slogan">Hambúrguer 100% soteropolitano 🍔🔥</p>
+                <div class="status-container" id="status-container">
+                    <div class="status-indicator" id="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text" id="status-text">Carregando...</span>
+                    </div>
+                </div>
+                <div class="business-hours">
+                    <i class="fas fa-clock"></i>
+                    <span>Qui a Dom: 18:30h às 23:00h</span>
+                </div>
+            </div>
+            <div class="social-container">
+                <a href="https://instagram.com/resenhaburgerssa" target="_blank" class="instagram-link pulse-animation">
+                    <i class="fab fa-instagram"></i>
+                    <div class="instagram-text">
+                        <span class="instagram-line">siga-nos</span>
+                        <span class="instagram-line">@resenhaburgerssa</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de categorias e busca -->
+    <nav class="menu-categories-container">
+        <div class="menu-categories" id="categories-menu">
+            <button class="cat-btn active" onclick="scrollToSection('mais-pedidos')"><i class="fas fa-fire"></i> ⭐ Mais Pedidos</button>
+            <button class="cat-btn" onclick="scrollToSection('smash')"><i class="fas fa-hamburger"></i> 🍔 Smash</button>
+            <button class="cat-btn" onclick="scrollToSection('premium')"><i class="fas fa-crown"></i> 👑 Premium</button>
+            <button class="cat-btn" onclick="scrollToSection('combos')"><i class="fas fa-gift"></i> 🎁 Combos</button>
+            <button class="cat-btn" onclick="scrollToSection('promocoes')"><i class="fas fa-bolt"></i> 🔥 Promoções</button>
+            <button class="cat-btn" onclick="scrollToSection('acompanhamentos')"><i class="fas fa-french-fries"></i> 🍟 Acompanhamentos</button>
+            <button class="cat-btn" onclick="scrollToSection('bebidas')"><i class="fas fa-glass-whiskey"></i> 🥤 Bebidas</button>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar no cardápio...">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Categorias (cards serão gerados dinamicamente) -->
+        <div id="categorias-container">
+            <section id="mais-pedidos" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-fire"></i> ⭐ Mais Pedidos</h2>
+                    <p class="category-subtitle">Os queridinhos da galera! <span class="popular-count" id="count-mais-pedidos"></span></p>
+                </div>
+                <div class="products" id="products-mais-pedidos"></div>
+            </section>
+
+            <section id="smash" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-hamburger"></i> 🍔 Smash</h2>
+                    <p class="category-subtitle">Prensados na chapa, suculentos e crocantes. <span class="popular-count" id="count-smash"></span></p>
+                </div>
+                <div class="products" id="products-smash"></div>
+            </section>
+
+            <section id="premium" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-crown"></i> 👑 Premium</h2>
+                    <p class="category-subtitle"><span class="popular-count" id="count-premium"></span></p>
+                </div>
+                <div class="products" id="products-premium"></div>
+            </section>
+
+            <section id="combos" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-gift"></i> 🎁 Combos</h2>
+                    <p class="category-subtitle"><span class="popular-count" id="count-combos"></span></p>
+                </div>
+                <div class="products" id="products-combos"></div>
+            </section>
+
+            <section id="promocoes" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-bolt"></i> 🔥 Promoções</h2>
+                    <p class="category-subtitle"><span class="popular-count" id="count-promocoes"></span></p>
+                </div>
+                <div class="products" id="products-promocoes"></div>
+            </section>
+
+            <section id="acompanhamentos" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-french-fries"></i> 🍟 Acompanhamentos</h2>
+                    <p class="category-subtitle"><span class="popular-count" id="count-acompanhamentos"></span></p>
+                </div>
+                <div class="products" id="products-acompanhamentos"></div>
+            </section>
+
+            <section id="bebidas" class="category">
+                <div class="category-header">
+                    <h2><i class="fas fa-glass-whiskey"></i> 🥤 Bebidas</h2>
+                    <p class="category-subtitle"><span class="popular-count" id="count-bebidas"></span></p>
+                </div>
+                <div class="products" id="products-bebidas"></div>
+            </section>
+        </div>
+
+        <!-- Informações de contato e rodapé -->
+        <section class="contact-info">
+            <div class="info-content">
+                <div class="info-column">
+                    <h3><i class="fas fa-info-circle"></i> Informações</h3>
+                    <p><i class="fas fa-phone-alt"></i> Pedidos: WhatsApp</p>
+                    <p><i class="fas fa-credit-card"></i> Débito, Pix, Crédito</p>
+                </div>
+                <div class="info-column">
+                    <h3><i class="fas fa-shipping-fast"></i> Entrega</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Salvador</p>
+                    <p><i class="fas fa-motorcycle"></i> 30-45 min</p>
+                </div>
+                <div class="info-column instagram-promo">
+                    <h3><i class="fab fa-instagram"></i> Siga-nos</h3>
+                    <p><strong>@resenhaburgerssa</strong></p>
+                    <!-- Linha removida -->
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h4>RESENHA<span>BURGER</span></h4>
+                    <p>Hambúrguer 100% soteropolitano 🍔🔥</p>
+                </div>
+                <div class="footer-info">
+                    <p><i class="far fa-copyright"></i> 2025 ResenhaBurger</p>
+                    <p>Salvador - BA</p>
+                </div>
+                <div class="footer-payment">
+                    <p><i class="fas fa-credit-card"></i> Aceitamos:</p>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Carrinho lateral -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Seu pedido</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body">
+            <div class="cart-empty-state" id="cart-empty-state">
+                <i class="fas fa-shopping-basket"></i>
+                <h4>Carrinho vazio</h4>
+                <button class="btn-continue-shopping" onclick="scrollToSection('mais-pedidos')">Ver cardápio</button>
+            </div>
+
+            <!-- Dados para entrega -->
+            <div class="customer-info">
+                <h4><i class="fas fa-user"></i> Dados para entrega</h4>
+                <input type="text" id="clienteNome" placeholder="Nome completo *" class="cart-input">
+                <input type="tel" id="clienteTelefone" placeholder="WhatsApp *" class="cart-input" onblur="buscarPontosCliente()">
+                <input type="text" id="clienteCEP" placeholder="CEP (opcional, para preenchimento automático)" class="cart-input" onblur="buscarCEP()">
+                <input type="text" id="clienteEndereco" placeholder="Endereço completo *" class="cart-input">
+                <input type="text" id="clienteReferencia" placeholder="Ponto de referência" class="cart-input">
+                <textarea id="observacoes" placeholder="Observações gerais (ex: portão vermelho)" class="cart-input" rows="2"></textarea>
+            </div>
+
+            <!-- Sistema de pontos -->
+            <div class="points-system" id="points-system" style="display: none;">
+                <div class="points-info">
+                    <i class="fas fa-star"></i> Seus pontos: <strong id="cliente-pontos">0</strong>
+                </div>
+                <div class="points-progress">
+                    <div class="progress-bar" id="points-progress-bar"><div class="progress-fill" id="points-progress-fill" style="width:0%"></div></div>
+                    <div class="points-goal" id="points-goal">Faltam <span id="points-to-next">150</span> pts para R$10 de desconto</div>
+                </div>
+                <div class="points-discount" id="points-discount-container" style="display: none;">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="usarPontosCheckbox" onchange="aplicarDescontoPontos()">
+                        <span>Usar 150 pontos e ganhar R$10 de desconto</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Seção de Itens adicionados -->
+            <div class="cart-items-section">
+                <h4><i class="fas fa-list"></i> Itens adicionados</h4>
+                <ul id="cart-items" class="cart-items-list"></ul>
+                <button class="btn-remove-selected" id="remove-selected-btn" onclick="removerSelecionados()" style="display: none;">Remover selecionados</button>
+            </div>
+
+            <!-- Resumo do pedido -->
+            <div class="cart-summary">
+                <div class="summary-row"><span>Subtotal:</span><span id="subtotal">R$ 0,00</span></div>
+                <div class="summary-row"><span>Desconto Pontos:</span><span id="points-discount">-R$ 0,00</span></div>
+                <div class="summary-row total"><span>Total:</span><span id="total">R$ 0,00</span></div>
+                <div class="summary-note"><i class="fas fa-info-circle"></i> Entregamos em Salvador</div>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <button class="btn-checkout" id="checkout-btn" onclick="abrirModalConfirmacaoCheckout()" disabled>
+                <i class="fab fa-whatsapp"></i> Finalizar no WhatsApp
+            </button>
+            <div class="cart-footer-actions">
+                <button class="btn-clear" onclick="limparCarrinho()"><i class="fas fa-trash-alt"></i> Limpar</button>
+                <button class="btn-continue" onclick="toggleCart()"><i class="fas fa-utensils"></i> Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão flutuante do carrinho -->
+    <button id="cart-toggle" class="cart-toggle" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count">0</span>
+        <span class="cart-toggle-text">Ver carrinho</span>
+    </button>
+
+    <!-- Modal de observações (para edição) -->
+    <div id="obs-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-pencil-alt"></i> Observações para este item</h3>
+            <textarea id="obs-text" placeholder="Ex: sem cebola, ponto da carne, etc." rows="4"></textarea>
+            <div class="modal-actions">
+                <button class="btn-confirm" id="obs-confirm">Salvar</button>
+                <button class="btn-cancel" onclick="fecharObsModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para itens normais (com pergunta de bebida) -->
+    <div id="item-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="item-modal-title">Adicionar item</h3>
+            <p id="item-modal-price"></p>
+            <div class="item-quantity">
+                <label for="item-quantity">Quantidade:</label>
+                <input type="number" id="item-quantity" min="1" value="1" class="cart-input">
+            </div>
+            <textarea id="item-obs" placeholder="Observações (ex: sem cebola, bem passado...)" class="cart-input" rows="3"></textarea>
+            <div class="modal-question pulse">
+                <p>Deseja adicionar uma bebida?</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-yes" id="item-confirm-yes">Sim, adicionar bebida</button>
+                <button class="btn-orange" id="item-confirm-no">Não quero, adicione apenas o item</button>
+                <button class="btn-cancel" onclick="closeItemModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para bebidas -->
+    <div id="drink-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="drink-modal-title">Escolha sua bebida</h3>
+            <div id="drink-options" class="drink-options"></div>
+            <div class="drink-quantity">
+                <label for="drink-quantity">Quantidade:</label>
+                <input type="number" id="drink-quantity" min="1" value="1" class="cart-input">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-confirm" id="drink-confirm">Adicionar ao carrinho</button>
+                <button class="btn-cancel" onclick="closeDrinkModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de upsell de bebidas -->
+    <div id="upsell-drink-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-glass-whiskey"></i> Adicionar uma bebida?</h3>
+            <p>Escolha a opção desejada:</p>
+            <div id="upsell-drink-list" class="upsell-drink-list"></div>
+            <div class="modal-actions">
+                <button class="btn-confirm" id="upsell-drink-confirm">Adicionar</button>
+                <button class="btn-cancel" onclick="closeUpsellDrinkModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVO MODAL DE CONFIRMAÇÃO DE CHECKOUT -->
+    <div id="checkout-confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-shopping-cart"></i> Revisar pedido</h3>
+            <p>Confira os itens abaixo. Marque para remover, se desejar.</p>
+            <div id="checkout-items-list" class="checkout-items-list"></div>
+            <div class="modal-actions">
+                <button class="btn-confirm" id="checkout-confirm-btn">Continuar para WhatsApp</button>
+                <button class="btn-cancel" onclick="fecharModalConfirmacaoCheckout()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up de upsell não modal (mantido para compatibilidade) -->
+    <div id="upsell-popup" class="upsell-popup" style="display: none;">
+        <div class="upsell-popup-content">
+            <button class="close-popup" onclick="closeUpsellPopup()"><i class="fas fa-times"></i></button>
+            <p id="upsell-popup-message">Quer adicionar mais?</p>
+            <div id="upsell-popup-options" class="upsell-popup-options"></div>
+            <button class="btn-no" onclick="closeUpsellPopup()">Não, obrigado</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
